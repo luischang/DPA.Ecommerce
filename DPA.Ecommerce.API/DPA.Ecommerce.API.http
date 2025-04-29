@@ -1,0 +1,6 @@
+@DPA.Ecommerce.API_HostAddress = http://localhost:5027
+
+GET {{DPA.Ecommerce.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
