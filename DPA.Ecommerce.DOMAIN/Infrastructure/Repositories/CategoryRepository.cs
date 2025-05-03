@@ -31,6 +31,7 @@ namespace DPA.Ecommerce.DOMAIN.Infrastructure.Repositories
         //Add category
         public async Task<int> AddCategory(Category category)
         {
+            category.IsActive = true;
             await _context.Category.AddAsync(category);
             await _context.SaveChangesAsync();
             return category.Id;
@@ -45,8 +46,8 @@ namespace DPA.Ecommerce.DOMAIN.Infrastructure.Repositories
                 return false;
             }
             existingCategory.Description = category.Description;
-            existingCategory.IsActive = category.IsActive;
-            _context.Category.Update(existingCategory);
+            //existingCategory.IsActive = category.IsActive;
+            //_context.Category.Update(existingCategory);
             await _context.SaveChangesAsync();
             return true;
         }

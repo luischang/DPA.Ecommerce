@@ -43,5 +43,33 @@ namespace DPA.Ecommerce.API.Controllers
             var categoryId = await _categoryRepository.AddCategory(category);
             return CreatedAtAction(nameof(GetCategoryById), new { id = categoryId }, category);
         }
+
+        //Update category
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] Category category)
+        {
+            if (id != category.Id)
+            {
+                return BadRequest();
+            }
+            var result = await _categoryRepository.UpdateCategory(category);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        //Delete category
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            var result = await _categoryRepository.DeleteCategory(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
     }
 }
