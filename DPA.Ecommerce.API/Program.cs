@@ -1,4 +1,5 @@
 using DPA.Ecommerce.DOMAIN.Core.Interfaces;
+using DPA.Ecommerce.DOMAIN.Core.Services;
 using DPA.Ecommerce.DOMAIN.Infrastructure.Data;
 using DPA.Ecommerce.DOMAIN.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<StoreDbueContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

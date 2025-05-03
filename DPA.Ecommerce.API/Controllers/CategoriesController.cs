@@ -1,4 +1,5 @@
-﻿using DPA.Ecommerce.DOMAIN.Core.Entities;
+﻿using DPA.Ecommerce.DOMAIN.Core.DTOs;
+using DPA.Ecommerce.DOMAIN.Core.Entities;
 using DPA.Ecommerce.DOMAIN.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,23 +10,28 @@ namespace DPA.Ecommerce.API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository;
-        public CategoriesController(ICategoryRepository categoryRepository)
+        //private readonly ICategoryRepository _categoryRepository;
+        //public CategoriesController(ICategoryRepository categoryRepository)
+        //{
+        //    _categoryRepository = categoryRepository;
+        //}
+        private readonly ICategoryService _categoryService;
+        public CategoriesController(ICategoryService categoryService)
         {
-            _categoryRepository = categoryRepository;
+            _categoryService = categoryService;
         }
         //Get all categories
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await _categoryRepository.GetAllCategories();
+            var categories = await _categoryService.GetAllCategories();
             return Ok(categories);
         }
         //Get category by id
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategoryById(int id)
         {
-            var category = await _categoryRepository.GetCategoryById(id);
+            var category = await _categoryService.GetCategoryById(id);
             if (category == null)
             {
                 return NotFound();
@@ -34,25 +40,25 @@ namespace DPA.Ecommerce.API.Controllers
         }
         //Add category
         [HttpPost]
-        public async Task<IActionResult> AddCategory([FromBody] Category category)
+        public async Task<IActionResult> AddCategory([FromBody] CategoryCreateDTO categoryCreateDTO)
         {
-            if (category == null)
+            if (categoryCreateDTO == null)
             {
                 return BadRequest();
             }
-            var categoryId = await _categoryRepository.AddCategory(category);
-            return CreatedAtAction(nameof(GetCategoryById), new { id = categoryId }, category);
+            var categoryId = await _categoryService.AddCategory(categoryCreateDTO);
+            return CreatedAtAction(nameof(GetCategoryById), new { id = categoryId }, categoryCreateDTO);
         }
 
         //Update category
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategory(int id, [FromBody] Category category)
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryListDTO categoryListDTO)
         {
-            if (id != category.Id)
+            if (id != categoryListDTO.Id)
             {
                 return BadRequest();
             }
-            var result = await _categoryRepository.UpdateCategory(category);
+            var result = await _categoryService.UpdateCategory(categoryListDTO);
             if (!result)
             {
                 return NotFound();
@@ -64,7 +70,7 @@ namespace DPA.Ecommerce.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var result = await _categoryRepository.DeleteCategory(id);
+            var result = await _categoryService.DeleteCategory(id);
             if (!result)
             {
                 return NotFound();
