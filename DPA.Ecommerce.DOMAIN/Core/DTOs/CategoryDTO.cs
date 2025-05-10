@@ -23,4 +23,11 @@ namespace DPA.Ecommerce.DOMAIN.Core.DTOs
     {
         public string? Description { get; set; }
     }
+
+    public class  CategoryProductsDTO
+    {
+        public int Id { get; set; }
+        public string? Description { get; set; }
+        public ICollection<ProductListDTO> Products { get;set; }
+    }
 }

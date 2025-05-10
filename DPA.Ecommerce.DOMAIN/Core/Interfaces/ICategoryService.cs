@@ -9,5 +9,6 @@ namespace DPA.Ecommerce.DOMAIN.Core.Interfaces
         Task<IEnumerable<CategoryListDTO>> GetAllCategories();
         Task<CategoryListDTO> GetCategoryById(int id);
         Task<bool> UpdateCategory(CategoryListDTO categoryDTO);
+        Task<CategoryProductsDTO> GetCategoryWithProducts(int id);
     }
 }

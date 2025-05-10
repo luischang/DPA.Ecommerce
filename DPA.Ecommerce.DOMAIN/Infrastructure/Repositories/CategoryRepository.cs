@@ -77,5 +77,13 @@ namespace DPA.Ecommerce.DOMAIN.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        //Get category with products
+        public async Task<Category> GetCategoryWithProducts(int id)
+        {
+            return await _context.Category
+                .Include(c => c.Product)
+                .FirstOrDefaultAsync(c => c.Id == id && c.IsActive == true);            
+        }
     }
 }

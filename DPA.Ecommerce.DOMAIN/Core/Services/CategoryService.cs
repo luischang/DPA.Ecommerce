@@ -78,5 +78,30 @@ namespace DPA.Ecommerce.DOMAIN.Core.Services
             return await _categoryRepository.UpdateCategory(category);
         }
 
+        //Get category with products
+        public async Task<CategoryProductsDTO> GetCategoryWithProducts(int id)
+        {
+
+            var category = await _categoryRepository.GetCategoryWithProducts(id);
+            if (category == null)
+            {
+                return null;
+            }
+            var categoryDTO = new CategoryProductsDTO
+            {
+                Id = category.Id,
+                Description = category.Description,
+                Products = category.Product.Select(p => new ProductListDTO
+                {
+                    Id = p.Id,
+                    Description = p.Description,
+                    Price = p.Price,
+                    Stock = p.Stock,
+                    ImageUrl = p.ImageUrl,
+                }).ToList()
+            };
+            return categoryDTO;
+        }
+
     }
 }

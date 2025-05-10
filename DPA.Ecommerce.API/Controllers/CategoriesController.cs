@@ -77,5 +77,17 @@ namespace DPA.Ecommerce.API.Controllers
             }
             return NoContent();
         }
+
+        //Get category with products
+        [HttpGet("{id}/products")]
+        public async Task<IActionResult> GetCategoryWithProducts(int id)
+        {
+            var categoryProducts = await _categoryService.GetCategoryWithProducts(id);
+            if (categoryProducts == null)
+            {
+                return NotFound();
+            }
+            return Ok(categoryProducts);
+        }
     }
 }

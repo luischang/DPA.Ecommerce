@@ -10,5 +10,6 @@ namespace DPA.Ecommerce.DOMAIN.Core.Interfaces
         Task<Category> GetCategoryById(int id);
         Task<bool> RemoveCategory(int id);
         Task<bool> UpdateCategory(Category category);
+        Task<Category> GetCategoryWithProducts(int id);
     }
 }
