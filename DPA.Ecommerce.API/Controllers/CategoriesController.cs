@@ -1,6 +1,7 @@
 ﻿using DPA.Ecommerce.DOMAIN.Core.DTOs;
 using DPA.Ecommerce.DOMAIN.Core.Entities;
 using DPA.Ecommerce.DOMAIN.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace DPA.Ecommerce.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoriesController : ControllerBase
     {
         //private readonly ICategoryRepository _categoryRepository;
@@ -77,7 +79,7 @@ namespace DPA.Ecommerce.API.Controllers
             }
             return NoContent();
         }
-
+        
         //Get category with products
         [HttpGet("{id}/products")]
         public async Task<IActionResult> GetCategoryWithProducts(int id)
