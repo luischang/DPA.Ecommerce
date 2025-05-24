@@ -49,6 +49,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddHttpClient();
 
 //Add Swagger
 builder.Services.AddEndpointsApiExplorer();
