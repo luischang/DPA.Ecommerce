@@ -26,6 +26,20 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddControllers();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder//.WithOrigins("URL-FRONTEND")
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();                
+    });
+});
+
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -75,6 +89,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+app.UseCors();
 
 app.MapControllers();
 
