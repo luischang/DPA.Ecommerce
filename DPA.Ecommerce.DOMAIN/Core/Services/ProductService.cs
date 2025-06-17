@@ -24,7 +24,8 @@ namespace DPA.Ecommerce.DOMAIN.Core.Services
                 Description = p.Description,
                 ImageUrl = p.ImageUrl,
                 Stock = p.Stock,
-                Price = p.Price
+                Price = p.Price,
+                CategoryId = p.CategoryId
             });
         }
 

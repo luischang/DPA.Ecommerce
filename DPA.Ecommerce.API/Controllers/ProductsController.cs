@@ -1,5 +1,6 @@
 using DPA.Ecommerce.DOMAIN.Core.DTOs;
 using DPA.Ecommerce.DOMAIN.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 namespace DPA.Ecommerce.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -16,7 +18,7 @@ namespace DPA.Ecommerce.API.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
+        [HttpGet]        
         public async Task<ActionResult<IEnumerable<ProductListDTO>>> GetAll()
         {
             var products = await _productService.GetAllProducts();
